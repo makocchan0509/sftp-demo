@@ -1,0 +1,13 @@
+version: '3.1'
+
+services: 
+  sftp-server:
+    image: sftp-server:1.0
+    container_name: sftp-server
+    ports:
+      - 22:22
+    command: foo:pass:::upload
+  sftp-client:
+    image: sftp-client:1.0
+    container_name: sftp-client
+    tty: true
