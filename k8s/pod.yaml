@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sftp-client
+  namespace: sftp
+spec:
+  containers:
+  - image: gcr.io/masem-sandbox/sftp-client:1.0
+    name: sftp-client
+    command:
+      - "bin/bash"
+      - "-c"
+      - "sleep 3600"
+    volumeMounts:
+      - mountPath: /etc/secret-volume
+        name: secret-volume
+        readOnly: true
+  serviceAccountName: gcs-sftp
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: ssh-key
+      defaultMode: 0400
